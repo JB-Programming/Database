@@ -1,13 +1,28 @@
-from mysql.connector import connect, Error
+import mysql.connector
 
-try:
-    with connect(
-        host="localhost",
-        user="root",
-        password="P$kbYYgC?xXX83rF336R9@QPz7"
-    ) as connection:
-        create_db_query = "CREATE DATABASE online_movie_rating"
-        with connection.cursor() as cursor:
-            cursor.execute(create_db_query)
-except Error as e:
-    print(e)
+with mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="P$kbYYgC?xXX83rF336R9@QPz7",
+    database = "playground"
+) as connection:    
+
+    mycursor = connection.cursor(dictionary=True, buffered=True)
+
+    sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+    val = ("Johnnnnnnn", "Highway 2112121")
+    mycursor.execute(sql, val)
+
+    connection.commit()
+
+    print(mycursor.rowcount, "record inserted.")
+    mycursor.execute("SELECT * FROM customers")
+
+    #myresult = mycursor.fetchall()
+
+    #for x in myresult:
+     #   print(x)
+
+    for row in mycursor:
+        print(row['name'],row['address'])
+    
