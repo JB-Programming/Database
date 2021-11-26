@@ -6,7 +6,6 @@ with mysql.connector.connect(
     password="P$kbYYgC?xXX83rF336R9@QPz7",
     database = "playground"
 ) as connection:    
-
     mycursor = connection.cursor(dictionary=True, buffered=True)
 
     sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
