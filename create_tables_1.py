@@ -39,6 +39,11 @@ def was_ist_drinnen(mycursor):
   
   for i in column_list:
     print(i)
+
+  call = "SELECT * FROM customers"
+  mycursor.execute(call)
+  for row in mycursor:
+    print(row)
   
 
 
