@@ -16,9 +16,7 @@ mycursor = mydb.cursor(dictionary=True, buffered=True)
 val = "customers"
 #mycursor.execute("DROP TABLE "+val)
 
-mycursor.execute(
-  "CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))"
-  )
+mycursor.execute("CREATE TABLE customers (id INT(11) NOT NULL AUTO_INCREMENT,name VARCHAR(255),address VARCHAR(255),CONSTRAINT customers_pk PRIMARY KEY(id))")
 
 mycursor.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'customers'")
 for row in mycursor:

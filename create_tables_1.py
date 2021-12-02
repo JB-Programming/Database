@@ -21,11 +21,29 @@ def create_table(table_name, table_values, table_values_type, mycursor):
   mycursor.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = '" + table_name + "'")
   for row in mycursor:
     if row['COUNT(*)'] == 1:
-      print("Table is/was created")
+      print("The table "+table_name+" is/was created")
 
 def show_tables(mycursor):
   call = "SHOW TABLES"
+  mycursor.execute(call)
+  for row in mycursor:
+    print(row['Tables_in_playground'])
+
+def was_ist_drinnen(mycursor):
+  column_list = []
+  full_list = []
+  call = "SHOW COLUMNS FROM customers"
+  mycursor.execute(call)
+  for row in mycursor:
+    column_list.append(row['Field'])
   
+  for i in column_list:
+    print(i)
+  
+
+
+
+
   
   
   
@@ -34,14 +52,15 @@ def fill_table():
   pass
 
 
-values = ["name", "address"]
-types = ["VARCHAR(255)", "VARCHAR(255)"]
+values = ["id","name", "address"]
+types = ["INT(11) NOT NULL AUTO_INCREMENT","VARCHAR(255)", "VARCHAR(255)"]
 name = "customers"
 
 
 mycursor = mydb.cursor(dictionary=True, buffered=True)
 
-mycursor.execute("DROP TABLE customers")
-create_table(name, values, types, mycursor)
-show_tables(mycursor)
+#mycursor.execute("DROP TABLE customers")
+#create_table(name, values, types, mycursor)
+#show_tables(mycursor)
+was_ist_drinnen(mycursor)
 
